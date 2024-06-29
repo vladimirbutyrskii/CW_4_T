@@ -2,7 +2,7 @@ class Vacancy:
     """
     Класс для работы с вакансиями
     """
-    def __init__(self, name, area, salary: int, url, snippet):
+    def __init__(self, name: str, area: str, salary: int, url: str, snippet: str):
         self.name = self.__validation_data(name)
         self.area = self.__validation_data(area)
         self.salary = salary
@@ -44,7 +44,7 @@ class Vacancy:
             return "Отсутствует"
 
     @classmethod
-    def new_vacancy(cls, vacancy):
+    def new_vacancy(cls, vacancy: list[dict]):
         """
         Метод создания новой пользовательской вакансии из выгруженных с HH вакансий
         :param vacancy:

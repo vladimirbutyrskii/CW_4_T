@@ -1,3 +1,4 @@
+import sys
 from src.json_worker import WorkWithJson
 from src.parser import HH
 from src.vacancy import Vacancy
@@ -8,13 +9,13 @@ class UserInteractive(WorkWithJson):
     Класс, обеспечивающий взаимодействие с пользователем
     """
 
-    def __init__(self, user_name):
+    def __init__(self, user_name: str):
         super().__init__()
         self.user_name = user_name
         self.vacancies_list = []
 
     @staticmethod
-    def get_vacancies_list(keyword):
+    def get_vacancies_list(keyword: str):
         """
         Получение с сайта HH списка вакансий
         :param keyword:
@@ -24,7 +25,7 @@ class UserInteractive(WorkWithJson):
         hh = HH(keyword)
         return hh.load_vacancies()
 
-    def get_vacancies_list_from_file(self):
+    def get_vacancies_list_from_file(self) -> list[dict]:
         """
         Получение из файла списка вакансий
         :return:
@@ -36,7 +37,7 @@ class UserInteractive(WorkWithJson):
             self.vacancies_list.append(vac)
         return self.vacancies_list
 
-    def get_top_n_for_salary(self, n):
+    def get_top_n_for_salary(self, n: int) -> list[dict]:
         """
         Получение заданного пользователем количества вакансий с сортировкой
         по уровню зарплат (с убыванием)
@@ -51,7 +52,7 @@ class UserInteractive(WorkWithJson):
         sort_by_salary = sorted(vac_filter, key=lambda x: x.salary, reverse=True)
         return sort_by_salary[:n]
 
-    def get_vacancy_from_keywords(self):
+    def get_vacancy_from_keywords(self) -> list[dict]:
         """
         Получение списка вакансий по заданному ключевому слову
         :return:
@@ -67,6 +68,11 @@ class UserInteractive(WorkWithJson):
 
     @staticmethod
     def user_interaction(self):
+        """
+        Функция для взаимодействия с пользователем
+        :param self:
+        :return:
+        """
         print("Hello, user")
         user_name = input("Как ваше имя?  ")
         user = UserInteractive(user_name)
@@ -89,12 +95,9 @@ class UserInteractive(WorkWithJson):
         new_vac_list = []
         for vacancy in user.vacancies_list:
             vac = Vacancy.new_vacancy(vacancy)
-
             new_vac_list.append(vac)
 
         user.vacancies_list = new_vac_list
-        # for vacancy in user.vacancies_list:
-        #     print(vacancy)
         user.get_top_n_for_salary(n)
         for vacancy in user.get_top_n_for_salary(n):
             print(vacancy)
