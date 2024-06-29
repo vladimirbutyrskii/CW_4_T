@@ -40,3 +40,8 @@ if __name__ == "__main__":
     for vacancy in user.get_top_n_for_salary(n):
         print(vacancy)
         print()
+
+    print("------------------------------------------------------------------")
+    for vacancy in user.get_vacancy_from_keywords():
+        print(vacancy)
+        print()

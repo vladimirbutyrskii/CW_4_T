@@ -31,7 +31,12 @@ class UserInteractive(WorkWithJson):
         return sort_by_salary[:n]
 
     def get_vacancy_from_keywords(self):
-        keywords = input("Введите ключевые слова:  ")  # .split() сделано для одного
+        """
+        Получение списка вакансий по заданному ключевому слову
+        :return:
+        """
+        keywords = input("Введите ключевое слово:  ")  # .split() сделано для одного
+        print()
         res = []
         for vacancy in self.vacancies_list:
             if vacancy.name.find(keywords) != -1:
