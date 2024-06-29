@@ -1,4 +1,7 @@
 class Vacancy:
+    """
+    Класс для работы с вакансиями
+    """
     def __init__(self, name, area, salary: int, url, snippet):
         self.name = self.__validation_data(name)
         self.area = self.__validation_data(area)
@@ -14,6 +17,11 @@ class Vacancy:
                 f"Требования: {self.snippet}\n")
 
     def __lt__(self, other):
+        """
+        Метод для сравнения вакансий по зарплате
+        :param other:
+        :return:
+        """
         if not self.salary:
             return 0  # "Не указана"
         elif not other.salary:
@@ -25,6 +33,11 @@ class Vacancy:
 
     @staticmethod
     def __validation_data(data):
+        """
+        Метод валидации данных: если данные отстутствуют, возвращается текст "Отсутствует"
+        :param data:
+        :return:
+        """
         if data:
             return data
         else:
@@ -32,6 +45,11 @@ class Vacancy:
 
     @classmethod
     def new_vacancy(cls, vacancy):
+        """
+        Метод создания новой пользовательской вакансии из выгруженных с HH вакансий
+        :param vacancy:
+        :return:
+        """
         name = vacancy.get("name")
         area = vacancy.get("area").get("name")
         if vacancy.get("salary"):
@@ -47,3 +65,4 @@ class Vacancy:
         else:
             snippet = "Не указаны"
         return cls(name, area, salary, url, snippet)
+
